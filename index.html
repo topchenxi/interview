@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="node_modules/normalize.css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon"> </head>
+
+<body>
+    <div id="sidebar"></div>
+    <div id="content"></div>
+    <div id="back_to_top">back to top</div>
+    <div id="edit">edit</div>
+    <div id="loading">Loading ...</div>
+    <div id="error">Oops! ... File not found!</div>
+    <div id="flip">
+        <div id="pageup">上一章</div>
+        <div id="pagedown">下一章</div>
+    </div>
+    <div class="progress-indicator-2"></div>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/marked/lib/marked.js"></script>
+    <script src="node_modules/store/dist/store.legacy.min.js"></script>
+    <script src="node_modules/prismjs/prism.js"></script>
+    <script src="js/global.js"></script>
+    <script>
+    ditto.run();
+    </script>
+</body>
+
+</html>
