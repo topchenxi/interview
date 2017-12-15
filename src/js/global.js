@@ -395,7 +395,7 @@ function router() {
 var CONFIG = {
     document_title: "topchenxi",
     index: "README.md",
-    sidebar_file: "sidebar.md",
+    sidebar_file: "docs/nav/sidebar.md",
     base_url: "",
 };
 addConfig(ditto, CONFIG);
