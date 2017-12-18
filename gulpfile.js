@@ -53,7 +53,8 @@ gulp.task('clean', () => {
 
 gulp.task('watch', ['browserSync', 'less'], () => {
     gulp.watch('src/less/*.less', ['less', browserSync.reload]);
-    gulp.watch('docs/*.md', browserSync.reload);
+    gulp.watch(['docs/*.md', 'docs/**/*.md'], browserSync.reload);
+    gulp.watch('index.html', browserSync.reload);
 });
 
 // gulp 默认执行任务
