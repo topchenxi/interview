@@ -5,6 +5,8 @@ const
     browserSync = require('browser-sync'),
     // 补全前缀
     autoprefixer = require('gulp-autoprefixer'),
+    // 压缩javasricpt
+    uglify = require('gulp-uglify'),
     // less 插件
     less = require('gulp-less'),
     // 抛出异常 且 不终止watch事件
@@ -44,20 +46,28 @@ gulp.task('less', () => {
         .pipe(postcss([cssnano({ reduceIdents: { keyframes: false } })]))
         .pipe(rename({ suffix: '.min' }))
         .pipe(sourcemaps.write('/'))
-        .pipe(gulp.dest('dist/css'))
+        .pipe(gulp.dest('dist/css'));
 });
+
+gulp.task('js', () => {
+    return gulp.src(['src/js/*.js', 'src/js/**/*.js'])
+        .pipe(plumber())
+        .pipe(uglify())
+        .pipe(gulp.dest('dist/js'));
+})
 
 gulp.task('clean', () => {
     return del.sync('dist');
 });
 
 gulp.task('watch', ['browserSync', 'less'], () => {
-    gulp.watch('src/less/*.less', ['less', browserSync.reload]);
+    gulp.watch(['src/less/*.less', 'src/less/**/*.less'], ['less', browserSync.reload]);
+    gulp.watch(['src/js/*.js', 'src/js/**/*.js'], ['js', browserSync.reload]);
     gulp.watch(['docs/*.md', 'docs/**/*.md'], browserSync.reload);
     gulp.watch('index.html', browserSync.reload);
 });
 
 // gulp 默认执行任务
 gulp.task('default', (callback) => {
-    runSequence(['clean', 'less', 'browserSync', 'watch'], callback);
+    runSequence(['clean', 'less', 'js', 'browserSync', 'watch'], callback);
 });
