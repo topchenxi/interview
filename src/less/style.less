@@ -21,6 +21,9 @@
 @background_color_4: #444;
 @background_color_5: #409eff;
 
+@blue:#1890ff;
+@blue-hover:#40a9ff;
+
 *
 {
     box-sizing: border-box;
@@ -32,10 +35,18 @@ html
 {
     font-size: 100%;
 }
+ul,
+ol,
+li
+{
+    list-style: none;
+}
 body
 {
     font-family: 'Microsoft YaHei','Tahoma',Helvetica,'Heiti SC',Arial,sans-serif;
     font-size: .8rem;
+
+    overflow-y: scroll;
 
     margin: 0;
     padding: 0;
@@ -45,95 +56,75 @@ body
 }
 #sidebar
 {
-    margin-top: 0;
-    padding-top: 25px;
-    padding-bottom: 25px;
-    padding-left: 25px;
+    position: fixed;
 
-    box-shadow: 0 0 20px #ccc;
-    h1
-    {
-        font-size: 25px;
+    overflow: -moz-scrollbars-vertical;
+    overflow-y: auto;
 
-        margin-bottom: 0;
-        padding-bottom: 0;
-        a
-        {
-            &:link
-            {
-                color: @color_1;
-            }
-            &:visited
-            {
-                color: @color_1;
-            }
-        }
-    }
+    width: 240px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+    transition: transform .26s cubic-bezier(.47,0,.745,.715),-webkit-transform .26s cubic-bezier(.47,0,.745,.715);
+
+    box-shadow: 5px 0 10px rgba(0,0,0,.02);
     h2
     {
-        font-size: .7rem;
+        font-weight: normal;
+        text-align: center;
+        padding: 20px 0;
     }
-    h5
+    h3
     {
-        margin-top: 20px;
-        margin-bottom: 0;
-    }
-    a
-    {
-        &:visited
-        {
-            text-decoration: none;
+        font-size: 14px;
+        font-weight: normal;
 
-            color: @color_2;
-        }
-        &:link
-        {
-            text-decoration: none;
+        position: relative;
 
-            color: @color_2;
-        }
-    }
-    ul
-    {
-        margin: 0;
-        padding-top: 0;
-        padding-left: 10px;
+        display: block;
 
-        list-style-type: none;
-        li
-        {
-            font-size: .7rem;
+        padding: 9px 18px 9px 40px;
 
-            margin-top: 0;
-            margin-bottom: .2rem;
-            margin-left: 10px;
-            padding: 0;
+        text-transform: uppercase;
 
-            text-indent: -5px;
-            &:before
-            {
-                position: relative;
-                left: -5px;
-
-                content: '-';
-            }
-        }
+        color: #000;
     }
     ol
     {
+        overflow: hidden;
+
+        height: auto;
         margin: 0;
-        padding-top: 0;
-        padding-left: 30px;
+        padding: 5px 0 5px 40px;
+
+        list-style: none;
+
+        background-color: #fbfbfc;
         li
         {
-            font-size: .7rem;
+            list-style: none;
 
-            margin-top: 0;
-            margin-bottom: .2rem;
-            margin-left: 10px;
-            padding: 0;
+            transition: all .2s cubic-bezier(.25,.46,.45,.94);
+            a
+            {
+                font-size: 12px;
 
-            text-indent: -5px;
+                position: relative;
+
+                display: block;
+
+                padding: 9px 18px 9px 0;
+
+                text-decoration: none;
+                text-transform: uppercase;
+
+                color: rgba(87,87,87,.8);
+            }
+            .current
+            {
+                color: #000;
+            }
         }
     }
 }
@@ -413,33 +404,7 @@ input.searchButton
         }
     }
 }
-#back_to_top
-{
-    font-size: 10px;
-    line-height: 20px;
 
-    position: fixed;
-    top: 20px;
-
-    display: none;
-
-    width: 70px;
-    height: 20px;
-    margin-top: 0;
-    margin-left: 930px;
-
-    text-align: center;
-
-    color: @color_3;
-    border-radius: 5px;
-    background-color: @background_color_3;
-    &:hover
-    {
-        cursor: pointer;
-
-        background-color: @background_color_4;
-    }
-}
 #edit
 {
     font-size: 10px;
@@ -494,57 +459,46 @@ input.searchButton
     font-size: 10px;
 
     position: fixed;
-    bottom: 10px;
+    right: 20px;
+    bottom: 40px;
 
-    width: 100%;
-    height: 20px;
-
-    text-align: center;
-}
-#pageup
-{
-    line-height: 20px;
-
-    display: inline-block;
-
-    width: 70px;
-    height: 20px;
-    margin-right: 5px;
+    width: 80px;
 
     text-align: center;
-
-    color: @color_3;
-    border-radius: 5px;
-    background-color: @background_color_3;
-    &:hover
+     > div
     {
+        display: inline-block;
+
+        width: 40px;
+        height: 40px;
+        margin-bottom: 2px;
+
         cursor: pointer;
 
-        background-color: @background_color_4;
+        border-radius: 5px;
+        background-color: @blue;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 50% 50%;
+        &:hover
+        {
+            background-color: @blue-hover;
+        }
+        &#back_to_top
+        {
+            background-image: url(/src/images/top.png) ;
+        }
+        &#pageup
+        {
+            background-image: url(/src/images/pre.png) ;
+        }
+        &#pagedown
+        {
+            background-image: url(/src/images/next.png) ;
+        }
     }
 }
-#pagedown
-{
-    line-height: 20px;
 
-    display: inline-block;
-
-    width: 70px;
-    height: 20px;
-    margin-left: 5px;
-
-    text-align: center;
-
-    color: @color_3;
-    border-radius: 5px;
-    background-color: @background_color_3;
-    &:hover
-    {
-        cursor: pointer;
-
-        background-color: @background_color_4;
-    }
-}
 .progress-indicator-2
 {
     position: fixed;
@@ -738,25 +692,12 @@ pre[class*='language-']
     {
         font-size: 112%;
     }
-    #sidebar
-    {
-        position: fixed;
-
-        overflow: -moz-scrollbars-vertical;
-        overflow-y: auto;
-
-        width: 280px;
-        height: 100%;
-        margin-right: 20px;
-        padding-top: 0;
-        padding-bottom: 0;
-    }
     #content
     {
         width: 90%;
         margin-right: 0;
         margin-left: 0;
-        padding-left: 330px;
+        padding-left: 270px;
     }
     #loading
     {
@@ -781,11 +722,6 @@ pre[class*='language-']
 
         height: 17px;
         margin-left: 560px;
-    }
-    #flip
-    {
-        width: 150px;
-        margin-left: 545px;
     }
 }
 @media (min-width: 64rem)

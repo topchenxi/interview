@@ -52,7 +52,7 @@ gulp.task('less', () => {
 gulp.task('js', () => {
     return gulp.src(['src/js/*.js', 'src/js/**/*.js'])
         .pipe(plumber())
-        .pipe(uglify())
+        // .pipe(uglify())
         .pipe(gulp.dest('dist/js'));
 })
 

@@ -251,6 +251,8 @@ function create_page_anchors() {
 function normalize_paths() {
     // images
     $(ditto.content_id + " img").map(function() {
+        let src_url = $(this).attr("src");
+        if (!src_url) return;
         var src = $(this).attr("src").replace("./", "");
         if ($(this).attr("src").slice(0, 4) !== "http") {
             var pathname = location.pathname.substr(0, location.pathname.length - 1);
@@ -331,13 +333,14 @@ function router() {
         });
 
         var perc = ditto.save_progress ? store.get('page-progress') || 0 : 0;
-
         if (sectionId) {
             $('html, body').animate({
                 scrollTop: ($('#' + decodeURI(sectionId)).offset().top)
             }, 300);
         } else {
-            if (location.hash !== '' || Boolean(perc)) {
+            let open = true;
+            if ((location.hash !== '' || Boolean(perc)) && perc > 0.001 && open) {
+                console.log(perc);
                 if (!Boolean(perc)) {
                     $('html, body').animate({
                         scrollTop: ($('#content').offset().top + 10)
@@ -363,6 +366,14 @@ function router() {
         } else {
             $('#pagedown').css('display', 'inline-block');
         }
+
+        let currentHref = location.hash;
+        $('#sidebar ol li a').each(function(index, el) {
+            $(el).removeClass('current');
+            if ($(el).attr('href') == currentHref) {
+                $(el).addClass('current');
+            }
+        });
 
         (function() {
             var $w = $(window);
