@@ -16,6 +16,8 @@
 ### javascript
 1. [基础](#docs/javascript/base)
 1. [本地存储](#docs/javascript/storage)
+1. [JQuery](#docs/javascript/jquery)
+1. [代码段](#docs/javascript/code)
 
 
 ### 其他
