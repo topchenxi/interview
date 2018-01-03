@@ -18,6 +18,8 @@
 1. [本地存储](#docs/javascript/storage)
 1. [JQuery](#docs/javascript/jquery)
 1. [代码段](#docs/javascript/code)
+1. [es6](#docs/javascript/ES6)
+1. [其他](#docs/javascript/other)
 
 
 ### 其他
@@ -25,3 +27,4 @@
 1. [http](#docs/other/http)
 1. [MVC & MVVM](#docs/other/MVC&MVVM)
 1. [优化](#docs/other/optimize)
+1. [安全](#docs/other/security)

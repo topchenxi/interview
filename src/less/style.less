@@ -12,17 +12,8 @@
 @color_12: #e6db74;
 @color_13: #66d9ef;
 @color_14: #fd971f;
-@font_family_1: Verdana,
-Arial;
-@font_family_2: Consolas,
-'Courier New',
-Courier,
-FreeMono,
-monospace;
-@font_family_3: Consolas,
-Monaco,
-'Andale Mono',
-monospace;
+@font_family_2: Consolas, 'Courier New', Courier, FreeMono, monospace;
+@font_family_3: Consolas, Monaco, 'Andale Mono', monospace;
 @background_color_1: #fff;
 @background_color_2: #f8f8f8;
 @background_color_3: #aaa;
@@ -533,19 +524,28 @@ input.searchButton
         {
             .show
             {
-                display: block;
+                display: flex;
             }
         }
         .show
         {
+            font-size: 16px;
+
             position: absolute;
             top: 0;
             left: -100px;
 
-            // display: none;
-            width: 100px;
-             height: 40px;
-             border: 1px solid #ddd;
+            display: none;
+
+            min-width: 100px;
+            height: 40px;
+
+            color: #fff;
+            border: 1px solid #ddd;
+            background-color: @blue-hover;
+
+            justify-content: center;
+            align-items: center;;
         }
         a
         {

@@ -130,3 +130,76 @@ ie和ff都存在，相邻的两个div的margin-left和margin-right不会重合�
 
 
 ```
+
+
+
+
+常见兼容性问题？
+--------
+
+    * png24位的图片在iE6浏览器上出现背景，解决方案是做成PNG8.也可以引用一段脚本处理.
+    
+    * 浏览器默认的margin和padding不同。解决方案是加一个全局的*{margin:0;padding:0;}来统一。
+    
+    * IE6双边距bug:块属性标签float后，又有横行的margin情况下，在ie6显示margin比设置的大。 
+    
+    * 浮动ie产生的双倍距离（IE6双边距问题：在IE6下，如果对元素设置了浮动，同时又设置了margin-left或margin-right，margin值会加倍。）
+      #box{ float:left; width:10px; margin:0 0 0 100px;} 
+    
+     这种情况之下IE会产生20px的距离，解决方案是在float的标签样式控制中加入 ——_display:inline;将其转化为行内属性。(_这个符号只有ie6会识别)
+    
+    *  渐进识别的方式，从总体中逐渐排除局部。 
+    
+      首先，巧妙的使用“\9”这一标记，将IE游览器从所有情况中分离出来。 
+      接着，再次使用“+”将IE8和IE7、IE6分离开来，这样IE8已经独立识别。
+    
+      css
+          .bb{
+           background-color:#f1ee18;/*所有识别*/
+          .background-color:#00deff\9; /*IE6、7、8识别*/
+          +background-color:#a200ff;/*IE6、7识别*/
+          _background-color:#1e0bd1;/*IE6识别*/ 
+          } 
+    
+    *  IE下,可以使用获取常规属性的方法来获取自定义属性,
+       也可以使用getAttribute()获取自定义属性;
+       Firefox下,只能使用getAttribute()获取自定义属性. 
+       解决方法:统一通过getAttribute()获取自定义属性.
+    
+    * IE下,event对象有x,y属性,但是没有pageX,pageY属性; 
+      Firefox下,event对象有pageX,pageY属性,但是没有x,y属性.
+    
+    * 解决方法：（条件注释）缺点是在IE浏览器下可能会增加额外的HTTP请求数。
+    
+    * Chrome 中文界面下默认会将小于 12px 的文本强制按照 12px 显示, 
+      可通过加入 CSS 属性 -webkit-text-size-adjust: none; 解决.
+    
+    * 超链接访问过后hover样式就不出现了 被点击访问过的超链接样式不在具有hover和active了解决方法是改变CSS属性的排列顺序:
+    L-V-H-A :  a:link {} a:visited {} a:hover {} a:active {}
+    
+    * 怪异模式问题：漏写DTD声明，Firefox仍然会按照标准模式来解析网页，但在IE中会触发怪异模式。为避免怪异模式给我们带来不必要的麻烦，最好养成书写DTD声明的好习惯。现在可以使用[html5](http://www.w3.org/TR/html5/single-page.html)推荐的写法：`<doctype html>`
+    
+    * 上下margin重合问题
+    ie和ff都存在，相邻的两个div的margin-left和margin-right不会重合，但是margin-top和margin-bottom却会发生重合。
+    解决方法，养成良好的代码编写习惯，同时采用margin-top或者同时采用margin-bottom。
+    * ie6对png图片格式支持不好(引用一段脚本处理)
+
+
+    1、IE6的块元素，在左右浮动、设定marin时造成margin双边距bug。解决方法是在该元素中加入display:inline 或 display:block 明确其元素类型。
+    2、IE6/IE7下出现的各种错位，可以加入zoom:1来解决。
+    3、当元素使用float浮动后，元素与相邻的元素之间会产生3px的间隙。解决方法是在同一行的元素都加上float浮动。
+    4、IE6中奇数的宽高显示大小与偶数宽高显示大小存在一定的不同。其主要问题是出在奇数宽高上。要解决此类问题，只需要尽量将外部定位的div高宽写成偶数即可。
+    5、IE6中图片的下方会存在一定的缝隙。要解决此类问题，需要将img标签定义为display:block或为img对应的样式写入font-size:0。
+    6、如果一个元素中没有任何内容，当在样式中为这个元素设置了0-19px之间的高度时。此元素的高度始终为19px。加入HTML注释<!– >或者空白字符&nbsp;还可以在CSS中加入overflow:hidden。
+    7、IE6元素的z-index会继承父级元素的设置。
+
+
+    第2题 介绍所知道的CSS hack技巧
+    1、属性级Hack：当CSS写在同一行时，IE6无法识别!important。
+        "-"    减号是IE6专有的hack
+        "*"    IE6/IE7生效
+        "\9"   IE6/IE7/IE8/IE9/IE10生效
+        "\0"   IE8/IE9/IE10生效
+        "\9\0" IE9/IE10生效
+    2、选择符级Hack：比如IE6能识别*html .class{}，IE7能识别*+html .class{}或者*:first-child + html .class{}。
+    3、IE条件注释Hack：比如针对所有IE：<!–[if IE]><!–您的代码–><![endif]–>，针对IE6及以下版本：<!–[if lt IE 7]><!–您的代码–><![endif]–>，这类Hack不仅对CSS生效，对写在判断语句里面的所有代码都 会生效。
