@@ -375,6 +375,36 @@ const deepCopy = (origin, traget) => {
     return target;
 };
 
+function deepClone(obj) {
+    var _toString = Object.prototype.toString;
+    // null, undefined, non-object, function
+    if (!obj || typeof obj !== 'object') {
+        return obj;
+    }
+    // DOM Node
+    if (obj.nodeType && 'cloneNode' in obj) {
+        return obj.cloneNode(true);
+    }
+    // Date
+    if (_toString.call(obj) === '[object Date]') {
+        return new Date(obj.getTime());
+    }
+    // RegExp
+    if (_toString.call(obj) === '[object RegExp]') {
+        var flags = [];
+        if (obj.global) { flags.push('g'); }
+        if (obj.multiline) { flags.push('m'); }
+        if (obj.ignoreCase) { flags.push('i'); }
+
+        return new RegExp(obj.source, flags.join(''));
+    }
+    var result = Array.isArray(obj) ? [] : obj.constructor ? new obj.constructor() : {};
+    for (var key in obj ) {
+        result[key] = deepClone(obj[key]);
+    }
+    return result;
+}
+
 ```
 
 ## 继承
@@ -714,4 +744,51 @@ array.constructor === Array
 // 4
 array instanceof Array
 
+```
+
+## 请用代码写出(今天是星期x)
+```
+var days = ['日','一','二','三','四','五','六'];
+var date = new Date();
+
+console.log('今天是星期' + days[date.getDay()]);
+```
+
+### 完成一个函数,接受数组作为参数,数组元素为整数或者数组,数组元素包含整数或数组,函数返回扁平化后的数组
+如：[1, [2, [ [3, 4], 5], 6]] => [1, 2, 3, 4, 5, 6]
+
+```js
+function flat(data, result) {
+    var i, d, len;
+    for (i = 0, len = data.length; i < len; ++i) {
+        d = data[i];
+        if (typeof d === 'number') {
+            result.push(d);
+        } else {
+            flat(d, result);
+        }
+    }
+}
+```
+
+## 如何判断一个对象是否为函数
+
+```
+/**
+ * 判断对象是否为函数，如果当前运行环境对可调用对象（如正则表达式）
+ * 的typeof返回'function'，采用通用方法，否则采用优化方法
+ *
+ * @param {Any} arg 需要检测是否为函数的对象
+ * @return {boolean} 如果参数是函数，返回true，否则false
+ */
+function isFunction(arg) {
+    if (arg) {
+        if (typeof (/./) !== 'function') {
+            return typeof arg === 'function';
+        } else {
+            return Object.prototype.toString.call(arg) === '[object Function]';
+        }
+    } // end if
+    return false;
+}
 ```

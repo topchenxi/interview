@@ -15,6 +15,21 @@
 ```
 BFC，块级格式化上下文，一个创建了新的BFC的盒子是独立布局的，盒子里面的子元素的样式不会影响到外面的元素。在同一个BFC中的两个毗邻的块级盒在垂直方向（和布局方向有关系）的margin会发生折叠。
 （W3C CSS 2.1 规范中的一个概念，它决定了元素如何对其内容进行布局，以及与其他元素的关系和相互作用。）
+
+创建规则：
+
+1. 根元素
+2. 浮动元素（``float``不是``none``）
+3. 绝对定位元素（``position``取值为``absolute``或``fixed``）
+4. ``display``取值为``inline-block``,``table-cell``, ``table-caption``,``flex``, ``inline-flex``之一的元素
+5. ``overflow``不是``visible``的元素
+
+作用：
+
+1. 可以包含浮动元素
+2. 不被浮动元素覆盖
+3. 阻止父子元素的margin折叠
+
 ```
 
 ## CSS3有哪些新特性？
@@ -332,3 +347,43 @@ select:-webkit-autofill
 创建了块级格式化上下文的元素，不会和它的子元素发生margin折叠
 元素自身的`margin-bottom`和`margin-top`相邻时也会折
 ```
+
+## CSS有哪些继承属性
+```
+[font]
+[word-break]
+[letter-spacing]
+[text-align]
+[text-rendering]
+[word-spacing]
+[white-space]
+[text-indent]
+[text-transform]
+[text-shadow]
+[line-height]
+[color]
+[visibility]
+[cursor]
+```
+
+
+## flexbox布局及相关设置**
+```
+容器属性（采用Flex布局的元素，container）：  
+**flex-direction**：决定主轴的方向（即项目的排列方向）；row | row-reverse | column | column-reverse;  
+**flex-wrap**：设置是否换行；nowrap | wrap | wrap-reverse  
+**flex-flow**：flex-direction属性和flex-wrap属性的简写形式，flex-direction || flex-wrap  
+**justify-content**：定义了项目在主轴上的对齐方式；flex-start | flex-end | center | space-between | space-around  
+**align-items**：定义项目在交叉轴上如何对齐；flex-start | flex-end | center | baseline | stretch  
+**align-content**：定义了多根轴线的对齐方式；flex-start | flex-end | center | space-between | space-around | stretch  
+
+项目属性（子元素为项目，item）
+**order**：定义项目的排列顺序。数值越小，排列越靠前，默认为0。  
+**flex-grow**：定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。  
+**flex-shrink**：定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。  
+**flex-basis**：定义了在分配多余空间之前，项目占据的主轴空间。  
+**flex**：flex-grow, flex-shrink 和 flex-basis的简写。
+**align-self**：允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。  
+```
+[Flex 布局教程：语法篇](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html)  
+[Flex 布局教程：实例篇](http://www.ruanyifeng.com/blog/2015/07/flex-examples.html)
