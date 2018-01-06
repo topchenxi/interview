@@ -56,6 +56,13 @@ gulp.task('js', () => {
         .pipe(gulp.dest('dist/js'));
 })
 
+gulp.task('image', () => {
+    return gulp.src(['src/images/*.png', 'src/images/**/*.png'])
+        .pipe(plumber())
+        // .pipe(uglify())
+        .pipe(gulp.dest('dist/images'));
+})
+
 gulp.task('clean', () => {
     return del.sync('dist');
 });
@@ -63,11 +70,12 @@ gulp.task('clean', () => {
 gulp.task('watch', ['browserSync', 'less'], () => {
     gulp.watch(['src/less/*.less', 'src/less/**/*.less'], ['less', browserSync.reload]);
     gulp.watch(['src/js/*.js', 'src/js/**/*.js'], ['js', browserSync.reload]);
+    gulp.watch(['src/images/*.png', 'src/images/**/*.png'], ['image', browserSync.reload]);
     gulp.watch(['docs/*.md', 'docs/**/*.md'], browserSync.reload);
     gulp.watch('index.html', browserSync.reload);
 });
 
 // gulp 默认执行任务
 gulp.task('default', (callback) => {
-    runSequence(['clean', 'less', 'js', 'browserSync', 'watch'], callback);
+    runSequence(['clean', 'less', 'image', 'js', 'browserSync', 'watch'], callback);
 });
