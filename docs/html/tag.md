@@ -72,14 +72,13 @@ CSS规范规定，
 则为“块级”元素；`span`默认`display`属性值为`inline`，是“行内”元素。
 
 ```html
+块级元素：div, p, form, ul, li, ol, dl, form, hr, table h1
+行内元素：a b span img input select strong label textarea cite
 
- 块级元素：div, p, form, ul, li, ol, dl, form, hr, table h1
- 行内元素：a b span img input select strong label textarea cite
-
-（3）常见的空元素：
-    <br> <hr> <img> <input> <link> <meta>
-    鲜为人知的是：
-    <area> <base> <col> <command> <embed> <keygen> <param> <source> <track> <wbr>
+常见的空元素：
+<br> <hr> <img> <input> <link> <meta>
+鲜为人知的是：
+<area> <base> <col> <command> <embed> <keygen> <param> <source> <track> <wbr>
 ```
 
 ## 行内元素和块级元素
@@ -111,7 +110,7 @@ CSS规范规定，
 在使用 `<a>` 元素创建锚点时，需要使用 `name` 属性为其命名，代码如下所示：
 
 ```html
-<a name=”anchorname1”>锚点一</a>
+<a id=”anchorname1”>锚点一</a>
 
 <a href=”#anchorname1”>回到锚点一</a>
 ```
@@ -119,5 +118,8 @@ CSS规范规定，
 ## disabled readyonly?
 
 ```
-readonly只针对input(text / password)和textarea有效，而disabled对于所有的表单元素都有效，当表单元素在使用了disabled后，当我们将表单以POST或GET的方式提交的话，这个元素的值不会被传递出去，而readonly会将该值传递出去。
+readonly只针对input(text / password)和textarea有效，
+而disabled对于所有的表单元素都有效，当表单元素在使用了disabled后，
+当我们将表单以POST或GET的方式提交的话，这个元素的值不会被传递出去，
+而readonly会将该值传递出去。
 ```

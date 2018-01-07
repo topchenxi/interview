@@ -32,6 +32,15 @@ BFC，块级格式化上下文，一个创建了新的BFC的盒子是独立布�
 
 ```
 
+## 对BFC规范(块级格式化上下文：block formatting context)的理解？
+
+```
+（W3C CSS 2.1 规范中的一个概念,它是一个独立容器，决定了元素如何对其内容进行定位,以及与其他元素的关系和相互作用。）
+一个页面是由很多个 Box 组成的,元素的类型和 display 属性,决定了这个 Box 的类型。
+不同类型的 Box,会参与不同的 Formatting Context（决定如何渲染文档的容器）,因此Box内的元素会以不同的方式渲染,也就是说BFC内部的元素和外部的元素不会互相影响。
+```
+
+
 ## CSS3有哪些新特性？
 
 ```
@@ -176,14 +185,6 @@ inherit :规定从父元素继承 position 属性的值。
 
 ```
 
-## 对BFC规范(块级格式化上下文：block formatting context)的理解？
-
-```
-（W3C CSS 2.1 规范中的一个概念,它是一个独立容器，决定了元素如何对其内容进行定位,以及与其他元素的关系和相互作用。）
-一个页面是由很多个 Box 组成的,元素的类型和 display 属性,决定了这个 Box 的类型。
-不同类型的 Box,会参与不同的 Formatting Context（决定如何渲染文档的容器）,因此Box内的元素会以不同的方式渲染,也就是说BFC内部的元素和外部的元素不会互相影响。
-```
-
 ## position:fixed;在android下无效怎么处理？
 
 ```
@@ -205,21 +206,6 @@ inline-block  默认宽度为内容宽度，可以设置宽高，同行显示。
 list-item   	象块类型元素一样显示，并添加样式列表标记。
 table       	此元素会作为块级表格来显示。
 inherit     	规定应该从父元素继承 display 属性的值。
-```
-
-## position的值relative和absolute定位原点是？
-
-```
-absolute
-生成绝对定位的元素，相对于值不为 static的第一个父元素进行定位。
-fixed （老IE不支持）
-生成绝对定位的元素，相对于浏览器窗口进行定位。
-relative
-生成相对定位的元素，相对于其正常位置进行定位。
-static
-默认值。没有定位，元素出现在正常的流中（忽略 top, bottom, left, right z-index 声明）。
-inherit
-规定从父元素继承 position 属性的值。
 ```
 
 ## 什么是外边距合并？
@@ -286,7 +272,7 @@ select:-webkit-autofill
 多数显示器默认频率是60Hz，即1秒刷新60次，所以理论上最小间隔为1/60＊1000ms ＝ 16.7ms
 ```
 
-##overflow: scroll时不能平滑滚动的问题怎么处理？
+## overflow: scroll时不能平滑滚动的问题怎么处理？
 ```
 1.-webkit-overflow-scrolling: touch;
 2.iScroll
