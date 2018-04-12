@@ -59,3 +59,96 @@ function set_p(elem, pos) {
     elem.style['transform'] = 'translate(' + pos.x + 'px,' + pos.y + 'px)';
 }
 ```
+
+## ul，如何点击每一列的时候alert其index
+```html
+ <ul id="test">
+        <li>这是第一条</li>
+        <li>这是第二条</li>
+        <li>这是第三条</li>
+    </ul>
+```
+```js
+// var list = document.querySelectorAll('#test li');
+var list = document.getElementById('test').getElementsByTagName('li');
+// 方法一：
+for (var i = 0; i < list.length; i++) {
+    list[i].index = i;
+    list[i].onclick = function() {
+        console.log(this.index);
+    };
+}
+//方法二：
+for (var i = 0; i < 3; i++) {
+    list[i].index = i;
+    list[i].onclick = (function(a) {
+        return function() {
+            console.log(a);
+        }
+    })(i);
+}
+```
+
+## 实现类似jquery的选择器
+```js
+var query = function(selector) {
+    var reg = /^(#)?(\.)?(\w+)$/img;
+    var regResult = reg.exec(selector);
+    console.log(regResult);
+    var result = [];
+    //如果是id选择器
+    if (regResult[1]) {
+        if (regResult[3]) {
+            if (typeof document.querySelector === "function") {
+                result.push(document.querySelector(regResult[3]));
+            } else {
+                result.push(document.getElementById(regResult[3]));
+            }
+        }
+    }
+    //如果是class选择器
+    else if (regResult[2]) {
+        if (regResult[3]) {
+            if (typeof document.getElementsByClassName === 'function') {
+                var doms = document.getElementsByClassName(regResult[3]);
+                if (doms) {
+                    result = converToArray(doms);
+                }
+            }
+            //如果不支持getElementsByClassName函数
+            else {
+                var allDoms = document.getElementsByTagName("*");
+                for (var i = 0, len = allDoms.length; i < len; i++) {
+                    if (allDoms[i].className.search(new RegExp(regResult[2])) > -1) {
+                        result.push(allDoms[i]);
+                    }
+                }
+            }
+        }
+    }
+    //如果是标签选择器
+    else if (regResult[3]) {
+        var doms = document.getElementsByTagName(regResult[3].toLowerCase());
+        if (doms) {
+            result = converToArray(doms);
+        }
+    }
+    return result;
+}
+
+function converToArray(nodes) {
+    var array = null;
+    try {
+        array = Array.prototype.slice.call(nodes, 0); //针对非IE浏览器        
+    } catch (ex) {
+        array = new Array();
+        for (var i = 0, len = nodes.length; i < len; i++) {
+            array.push(nodes[i])
+        }
+    }
+    return array;
+}
+
+query('#test')
+```
+

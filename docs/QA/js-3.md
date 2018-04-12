@@ -37,3 +37,56 @@ function t1() {
 }
 t1()();
 ```
+
+## 定义一个log方法，让它可以代理console.log的方法
+```js
+function log(msg)　 {
+    console.log(msg);
+};
+```
+```js
+function log() {
+    console.log.apply(console, arguments);
+};
+```
+### Q:apply和call方法的异同
+
+A:
+对于apply和call两者在作用上是相同的，即是调用一个对象的一个方法，以另一个对象替换当前对象。
+
+将一个函数的对象上下文从初始的上下文改变为由 thisObj 指定的新对象。
+
+但两者在参数上有区别的。
+
+对于第一个参数意义都一样，但对第二个参数： 
+
+apply传入的是一个参数数组，也就是将多个参数组合成为一个 数组传入，而call则作为call的参数传入（从第二个参数开始）。
+
+如 `func.call(func1,var1,var2,var3)`对应的apply写法为：`func.apply(func1, [var1,var2,var3])` 。
+
+## 给String对象添加一个方法，string的每个字符间价格空格返回
+```js
+String.prototype.spacify = function() {
+    return this.split('').join(' ');
+};
+
+```
+### Q:直接在对象的原型上添加方法是否安全？尤其是在Object对象上。
+
+A:
+
+1.可靠性 (项目不止一个人时，就很容易出现冲突)
+
+2.兼容性
+
+3.如果所有人都改呢？这个问题的严重性应该不用说了
+
+### Q:函数声明与函数表达式的区别
+
+A:
+
+在js中，解析器在向执行环境中加载数据时，对函数声明和函数表达式并非是一视同仁的，
+
+解析器会率先读取函数声明，并使其在执行任何代码之前可用（可以访问），
+
+至于函数表达式，则必须等到解析器执行到它所在的代码行，才会真正被解析执行。

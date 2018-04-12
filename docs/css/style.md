@@ -43,7 +43,7 @@ BFC，块级格式化上下文，一个创建了新的BFC的盒子是独立布�
 
 ## CSS3有哪些新特性？
 
-```
+```css
 新增选择器     p:nth-child(n){color: rgba(255, 0, 0, 0.75)}
 弹性盒模型     display: flex;
 多列布局       column-count: 5;

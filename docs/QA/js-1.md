@@ -6,6 +6,26 @@ console.log(undefined == null); // true
 console.log(undefined === null); // false
 ```
 
+## number & string
+```js
+var foo = "11" + 2 - "1";
+console.log(foo); // 111
+console.log(typeof foo); // number
+```
+
+## true & false
+```js
+var undefined;
+console.log(undefined == null); // true
+console.log(1 == true); // true
+console.log(2 == true); // false
+console.log(0 == false); // true
+console.log(0 == ''); // true
+console.log(NaN == NaN); // false
+console.log([] == false); // true
+console.log([] == ![]); // true
+```
+
 ## function arguments
 
 ```js 
@@ -140,6 +160,28 @@ console.log(c instanceof B); // true
 var reg = /^( +)|( +)$/g;
 console.log('   aaa   bbb   '.replace(reg, ''));
 ```
+替换
+```js
+//define
+(function(window) {
+    function fn(str) {
+        this.str = str;
+    }
+    fn.prototype.format = function() {
+        var arg = arguments;
+        return this.str.replace(/\{(\d+)\}/ig, function(a, b) {
+            return arg[b] || "";
+        });
+    }
+    window.fn = fn;
+})(window);
+
+//use
+(function() {
+    var t = new fn('<p><a href="{0}">{1}</a><span>{2}</span></p>');
+    console.log(t.format('http://www.alibaba.com', 'Alibaba', 'Welcome'));
+})();
+```
 
 ##  作用域
 ```js
@@ -172,4 +214,123 @@ console.log('   aaa   bbb   '.replace(reg, ''));
     result();
     console.log(a); // 8: 4
 })();
+```
+
+## 'get-element-by-id' 转化成驼峰表示法 'getElementById'
+```js
+function trans(str) {
+    return str.split('-').map((item, index) => {
+        return index && item.length ? item.substr(0, 1).toUpperCase() + item.substr(1, item.length - 1) : item;
+    }).join('');
+}
+console.log(trans('get-element-by-id'))
+```
+
+## 写一个函数escapeHtml，将<, >, &, "进行转义
+```js
+function escapeHtml(str) {
+    return str.replace(/[<>"&]/g, function(match) {
+        switch (match) {
+            case '<':
+                return '&lt;';
+            case '>':
+                return '&gt;';
+            case '&':
+                return '&amp;';
+            case '\"':
+                return '&quot;';
+        }
+    });
+}
+```
+
+## 随机选取10–100之间的10个数字，存入一个数组，并排序
+```js 
+var iArray = [];
+function getRandom(istart, iend) {
+    var iChoice = iend - istart + 1;
+    return Math.floor(Math.random() * iChoice + istart);
+}
+for (var i = 0; i < 10; i++) {
+    iArray.push(getRandom(10, 100));
+}
+iArray.sort();
+
+```
+
+## 提取URL中的各个GET参数，按key-value形式保存
+```js
+function serilizeUrl(url) {
+    var result = {};
+    var array = url.split('?');
+    if (array.length < 2) return result;
+    var data = array[1].split('&');
+    data.map(item => {
+        var tmpArr = item.split('=');
+        result[tmpArr[0]] = tmpArr.length >= 2 ? tmpArr[1] : '';
+    })
+    return result
+}
+console.log(serilizeUrl('http://item.taobao.com/item.htm?a=1&b=2&c=&d=xxx&e=2'));
+```
+
+## 闭包
+```js
+for (var i = 1; i <= 3; i++) {
+    setTimeout(function() {
+        console.log(i);
+    }, 0);
+};
+// 4 4 4
+
+for (var i = 1; i <= 3; i++) {
+    setTimeout((function(a) {
+        // 改成立即执行函数
+        console.log(a);
+    })(i), 0);
+};
+// 1 2 3
+```
+
+## trim 
+```js
+if (!String.prototype.trim) {
+    String.prototype.trim = function() {
+        return this.replace(/^\s+/, "").replace(/\s+$/, "");
+    }
+}
+
+```
+
+## object clone 
+```js
+// 方法一：
+Object.prototype.clone = function() {
+    var obj = this.constructor === Array ? [] : {};
+    for (var key in this) {
+        obj[key] = typeof this[key] === "object" ? this[key].clone() : this[key];
+    }
+    return obj;
+}
+
+//方法二：
+function clone(Obj) {
+    var buf;
+    if (Obj instanceof Array) {
+        buf = []; //创建一个空的数组
+        var i = Obj.length;
+        while (i--) {
+            buf[i] = clone(Obj[i]);
+        }
+        return buf;
+    } else if (Obj instanceof Object) {
+        buf = {}; //创建一个空对象
+        for (var k in Obj) { //为这个对象添加新的属性
+            buf[k] = clone(Obj[k]);
+        }
+        return buf;
+    } else { //普通变量直接赋值
+        return Obj;
+    }
+}
 ```

@@ -26,12 +26,14 @@ async function asyncPrint(value, ms) {
 
 ## 什么是 Promise ？
 
-* Promise 就是一个对象，用来表示并传递异步操作的最终结果
-* Promise 最主要的交互方式：将回调函数传入 then 方法来获得最终结果或出错原因
-* Promise 代码书写上的表现：以“链式调用”代替回调函数层层嵌套（回调地狱）
+```
+Promise 就是一个对象，用来表示并传递异步操作的最终结果
+Promise 最主要的交互方式：将回调函数传入 then 方法来获得最终结果或出错原因
+Promise 代码书写上的表现：以“链式调用”代替回调函数层层嵌套（回调地狱）
+```
 
 ## 说说你对Promise的理解*
-
+```
 - 依照 Promise/A+ 的定义，Promise 有四种状态：
   pending: 初始状态, 非 fulfilled 或 rejected.
 
@@ -43,22 +45,38 @@ async function asyncPrint(value, ms) {
 
   另外， fulfilled 与 rejected 一起合称 settled
 - Promise 对象用来进行延迟(deferred) 和异步(asynchronous ) 计算
+```
 
 ## Promise 的构造函数
 
-- 构造一个 Promise，最基本的用法如下：
-
 ```js
+// 构造一个 Promise，最基本的用法如下：
 var promise = new Promise(function(resolve, reject) {
+    if (...) {  // succeed
+        resolve(result);
+    } else {   // fails
+        reject(Error(errMessage));
+    }
+});
+```
 
-        if (...) {  // succeed
+## 变量的值的交换
+```js
+let a = 1;
+let b = 2;
+[a, b] = [b, a];
+```
 
-            resolve(result);
+## module模块用法
+```js
+// -----模块A------- //
+let name = "kitty";
+let age = 15;
+let say = function() {
+    //....
+};
+export { name, age, say }
 
-        } else {   // fails
-
-            reject(Error(errMessage));
-
-        }
-    });
+// ---module-B.js文件--- //
+import { name as nickname, say } from "模块A的相对路径";
 ```

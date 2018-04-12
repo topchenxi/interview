@@ -35,3 +35,5 @@
 1. [js-2](#docs/QA/js-2)
 1. [js经典](#docs/QA/js-3)
 1. [css-1](#docs/QA/css-1)
+1. [css-2](#docs/QA/css-2)
+1. [日常](#docs/QA/normal)
