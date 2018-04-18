@@ -123,3 +123,24 @@ readonly只针对input(text / password)和textarea有效，
 当我们将表单以POST或GET的方式提交的话，这个元素的值不会被传递出去，
 而readonly会将该值传递出去。
 ```
+
+## table标签中border,cellpadding td标签中colspan,rowspan分别起什么作用
+```
+border边界 
+cellpadding边距  
+cellpadding，是补白，是指单元格内文字与边框的距离 
+cellspacing，两个单元格之间的距离 
+colspan跨列数 
+rowspan跨行数 
+
+```
+```css
+table
+{   
+    /* 属性设置相邻单元格的边框间的距离 */
+    border-spacing: 3px;
+    /* separate 默认值。边框会被分开 */
+    /* collapse 边框会合并 */
+    border-collapse: collapse;
+}
+```

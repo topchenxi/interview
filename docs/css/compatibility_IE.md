@@ -123,3 +123,112 @@ span
 - 作为外部 wrapper 的 div 不要定死高度, 最好还加上 overflow: hidden.以达到高度自适应
 
 - 居中一个浮动元素? 对其设置margin:x auto; 
+
+## JavaScript在IE和FF下的兼容性问题
+
+```js
+// 差别 
+var year = new Date().getYear();
+// FF,chrome: 118
+// ie:2018
+
+// 兼容处理
+// 1
+var year = new Date().getYear();
+year = (year < 1900 ? (1900 + year) : year);
+// 2
+var year = new Date().getFullYear();
+
+
+// CSS的"float"属性
+// ie
+document.getElementById("header").style.styleFloat = "left";
+// ff
+document.getElementById("header").style.cssFloat = "left";
+
+// 兼容处理
+if (document.all) {
+    document.getElementById("header").style.styleFloat = "left";
+} else {
+    //非ie 时为undefined  
+    document.getElementById("header").style.cssFloat = "left";
+}
+
+// for 
+// ie
+var myAttribute = document.getElementById("myLabel").getAttribute("htmlFor");
+// ff
+var myAttribute = document.getElementById("myLabel").getAttribute("for");
+
+// class
+// ie
+var myAttribute = document.getElementById("header").getAttribute("className");
+// ff
+var myAttribute = document.getElementById("header").getAttribute("class");
+
+// 兼容处理
+// 1
+var myObject = document.getElementById("header");
+myObject.setAttribute("class", "classValue");
+myObject.setAttribute("className", "classValue");
+// 2
+document.getElementById("header").className = "classValue";
+
+
+```
+键盘值的取得
+```js
+function myKeyPress(evt) {
+    // 兼容IE和Firefox获得keyBoardEvent对象
+    evt = (evt) ? evt : ((window.event) ? window.event : "")
+    // 兼容IE和Firefox获得keyBoardEvent对象的键值
+    var key = evt.keyCode ? evt.keyCode : evt.which;
+    if (evt.ctrlKey && (key == 13 || key == 10)) {
+        // 同时按下了Ctrl和回车键
+        // do something;
+    }
+}
+```
+事件源的获取
+```js
+ele = function(evt) {
+	// 捕获当前事件作用的对象
+    evt = evt || window.event;　　
+    return (obj = event.srcElement ? event.srcElement : event.target;);
+}
+```
+
+事件监听
+```js
+function addEvent(elem, eventName, handler) {　　
+    if (elem.attachEvent) {
+        elem.attachEvent("on" + eventName, function() {　　　　　　　　　　　　　　　　
+            handler.call(elem)
+        });
+        //此处使用回调函数call()，让this指向elem  
+    } else if (elem.addEventListener) {
+        elem.addEventListener(eventName, handler, false);　　
+    }
+}
+
+function removeEvent(elem, eventName, handler) {　　
+    if (elem.detachEvent) {
+        elem.detachEvent("on" + eventName, function() {　　　　　　　　　　　　　　　　
+            handler.call(elem)
+        });
+        //此处使用回调函数call()，让this指向elem  
+    } else if (elem.removeEventListener) {
+        elem.removeEventListener(eventName, handler, false);　　
+    }
+}
+```
+
+XMLHttpRequest
+```js
+var xhr;
+if (window.XMLHttpRequest) {
+    xhr = new XMLHttpRequest();
+} else {
+    xhr = new ActiveXObject('Microsoft.XMLHTTP');
+}
+```

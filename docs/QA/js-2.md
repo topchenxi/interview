@@ -152,3 +152,31 @@ function converToArray(nodes) {
 query('#test')
 ```
 
+## 求一个字符串的字节长度
+```js
+function getByteLength(string) {
+    if (!string) return 0;
+    var result = 0;
+    for (var i = 0, len = string.length; i < len; i++) {
+        result += (string.charCodeAt(i) > 255 ? 2 : 1);
+    }
+    return result;
+}
+```
+
+## 按照格式 xxxx年xx月xx日xx时xx分xx秒动态显示时间 要求不足10的补0
+```js
+function getDateString() {
+    var date = new Date();
+    var year = date.getFullYear(),
+        month = ('00' + (date.getMonth() + 1)).slice(-2),
+        dateStr = ('00' + date.getDate()).slice(-2),
+        hour = ('00' + date.getHours()).slice(-2),
+        minute = ('00' + date.getMinutes()).slice(-2),
+        second = ('00' + date.getSeconds()).slice(-2);
+    return year + '年' + month + '月' + dateStr + '日' + hour + '时' + minute + '分' + second + '秒';
+}
+setInterval(function() {
+    document.getElementById('myid').innerHTML=getDateString();
+}, 1000)
+```

@@ -22,3 +22,68 @@
     .container section {min-height: 400px; background-color: #ccc; } 
 }
 ```
+
+## 如何居中一个浮动元素
+
+1.宽度不固定的浮动元素
+
+```html
+<style>
+.outerbox {
+    float: left;
+    position: relative;
+    left: 50%;
+}
+
+.innerbox {
+    float: left;
+    position: relative;
+    right: 50%;
+}
+</style>
+<div class="outerbox">
+    <div class="innerbox">我是浮动的</div>
+</div>
+```
+
+2.宽度固定的互动元素
+```html
+<style>
+.outerbox {
+    background-color: pink;
+    /*方便看效果 */
+    width: 500px;
+    height: 300px;
+    /*高度可以不设*/
+    margin-left: -250px;
+    /*使用marin向左移动250px，保证元素居中*/
+    position: relative;
+    /*相对定位*/
+    left: 50%;
+    top: 50%;
+}
+</style>
+<div class="outerbox">
+    <div>我是浮动的</div>
+</div>
+```
+
+3.绝对定位
+```html
+<style>
+.center {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    width: 500px;
+    height: 300px;
+    margin: auto;
+    float: left;
+    background: red;
+}
+</style>
+<div class="center"></div>
+```

@@ -185,6 +185,13 @@ inherit :规定从父元素继承 position 属性的值。
 
 ```
 
+## position：relative，position：absolute和float定位的区别
+```
+Position:relative;相对定位，对象遵循常规流，并且依据自身在正常流中的位置通过top，right，bottom，left属性进行偏移时不影响常规流中的任何元素。层叠通过z-index属性定义。
+
+Position:absolute；绝对定位，对象脱离文档流使用top，right，bottom，left等属性进行绝对定位，盒子的偏移位置不影响常规流中的任何元素。
+```
+
 ## position:fixed;在android下无效怎么处理？
 
 ```
