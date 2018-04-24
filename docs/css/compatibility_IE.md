@@ -1,5 +1,7 @@
 # 兼容性 - IE
 
+当在一个选择器中，利用!important改变样式优先级的时候，IE6下是无效的，后面的样式覆盖了前面的，!important被彻底无视了
+
 ## hack
 ```css
 .hack {

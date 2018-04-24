@@ -37,3 +37,4 @@
 1. [css-1](#docs/QA/css-1)
 1. [css-2](#docs/QA/css-2)
 1. [日常](#docs/QA/normal)
+1. [HR](#docs/QA/HR)

@@ -69,6 +69,37 @@ var v = $v[0];
 var v = $v.get(0); 
 ```
 
+## get(),[],eq(),的区别
+```
+get(),[] 返回的是dom对象
+eq() 返回的是jquery对象
+```
+## jquery 扩展
+```html
+<div id="tabs">
+    <ul class="tab_menu">
+        <li>1</li>
+        <li>2</li>
+    </ul>
+    <div class="tab_panel" style="display: none;">1</div>
+    <div class="tab_panel" style="display: none;">2</div>
+</div>
+```
+```js
+;(function($) {
+    $.fn.tab = function(obj) {
+        var $list = this.find('.tab_menu li');
+        var $divlist = this.find('.tab_panel');
+        $list.click(function(event) {
+            var index = $list.index($(this))
+            $divlist.eq(index).show().siblings('.tab_panel').hide();
+        });
+    }
+})(jQuery);
+
+$('#tabs').tab({ a: 1 });
+```
+
 
 ## JQuery的源码看过吗？能不能简单概况一下它的实现原理？
 

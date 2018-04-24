@@ -51,6 +51,23 @@ var foo = {
     return typeof arguments[0]; // function
 })(foo.bar)
 ```
+```js
+// 定义的log函数
+function log(msg) {
+    console.log(msg);
+}
+// 传递多个参数
+function log() {
+    console.log.apply(console, arguments);
+};
+
+// 前加上“(app)”的前缀
+function log() {
+    var args = Array.prototype.slice.call(arguments);
+    args.unshift('(app)');
+    console.log.apply(console, args);
+};
+```
 
 ## prototype
 ```js
@@ -62,6 +79,14 @@ var foo = new Foo();
 console.log(foo.bar); // my property
 delete foo.bar;
 console.log(foo.bar); // prototype property
+```
+```js
+function spacify(str) {
+    return str.replace(/\ /g, '').split('').join(' ');
+}
+String.prototype.spacify = function() {
+    return this.replace(/\ /g, '').split('').join(' ');
+}
 ```
 
 ## dom
